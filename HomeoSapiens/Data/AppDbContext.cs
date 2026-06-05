@@ -1,5 +1,7 @@
 using HomeoSapiens.Entities;
+using HomeoSapiens.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace HomeoSapiens.Data;
 
