@@ -9,7 +9,9 @@ namespace HomeoSapiens.Entities;
 [Index(nameof(Email), IsUnique = true)]
 public class User
 {
-    [Key] public Guid Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [Key]
+    public Guid Id { get; set; } = Guid.CreateVersion7();
 
     [Column(TypeName = "citext")] public required string Email { get; set; }
 
@@ -18,6 +20,6 @@ public class User
     public required string GivenName { get; set; }
     public required string FamilyName { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }

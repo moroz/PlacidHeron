@@ -1,15 +1,19 @@
+using HomeoSapiens.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeoSapiens.Controllers;
 
-public class UserController : Controller
+public class UserController(UserRepository userRepository) : Controller
 {
     // GET
-    public IActionResult Index()
+    [HttpGet("/api/v1/users")]
+    public async Task<IActionResult> Index()
     {
+        var users = await userRepository.ListUsers();
+
         return Ok(new
         {
-            Data = "OK"
+            Data = users
         });
     }
 }

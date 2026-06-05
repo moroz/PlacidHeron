@@ -1,4 +1,6 @@
 using HomeoSapiens.Data;
+using HomeoSapiens.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,8 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddScoped<UserRepository>();
+
 var app = builder.Build();
 
 app.UseCors("FrontendAppPolicy");
@@ -30,5 +34,24 @@ app.UseCors("FrontendAppPolicy");
 if (app.Environment.IsDevelopment()) app.MapOpenApi();
 
 app.MapControllers();
+
+if (app.Environment.IsProduction())
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await db.Database.MigrateAsync();
+}
+
+if (args.Contains("seed"))
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        await db.Database.MigrateAsync();
+        await Seeds.Run(db);
+    }
+
+    Environment.Exit(0);
+}
 
 app.Run();
