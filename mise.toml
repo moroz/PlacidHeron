@@ -1,0 +1,5 @@
+[tools]
+dotnet = "latest"
+
+[env]
+PGDATABASE = "homeosapiens_dev"
