@@ -1,0 +1,6 @@
+@HomeoSapiens_HostAddress = http://localhost:5070
+
+GET {{HomeoSapiens_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
