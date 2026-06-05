@@ -8,6 +8,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Event> Events { get; set; }
+    public DbSet<Asset> Assets { get; set; }
+    public DbSet<Video> Videos { get; set; }
+    public DbSet<VideoGroup> VideoGroups { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

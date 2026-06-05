@@ -4,6 +4,7 @@ using HomeoSapiens.Data;
 using HomeoSapiens.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HomeoSapiens.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260605205612_CreateAssets")]
+    partial class CreateAssets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,115 +165,6 @@ namespace HomeoSapiens.Migrations
                         .HasDatabaseName("ix_users_email");
 
                     b.ToTable("users", (string)null);
-                });
-
-            modelBuilder.Entity("HomeoSapiens.Models.Entities.Video", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<int?>("DurationSeconds")
-                        .HasColumnType("integer")
-                        .HasColumnName("duration_seconds");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("citext")
-                        .HasColumnName("slug");
-
-                    b.Property<Guid?>("ThumbnailEnId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("thumbnail_en_id");
-
-                    b.Property<Guid?>("ThumbnailPlId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("thumbnail_pl_id");
-
-                    b.Property<string>("TitleEn")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("title_en");
-
-                    b.Property<string>("TitlePl")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("title_pl");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id")
-                        .HasName("pk_videos");
-
-                    b.HasIndex("ThumbnailEnId")
-                        .HasDatabaseName("ix_videos_thumbnail_en_id");
-
-                    b.HasIndex("ThumbnailPlId")
-                        .HasDatabaseName("ix_videos_thumbnail_pl_id");
-
-                    b.ToTable("videos", (string)null);
-                });
-
-            modelBuilder.Entity("HomeoSapiens.Models.Entities.VideoGroup", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("citext")
-                        .HasColumnName("slug");
-
-                    b.Property<string>("TitleEn")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("title_en");
-
-                    b.Property<string>("TitlePl")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("title_pl");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id")
-                        .HasName("pk_video_groups");
-
-                    b.HasIndex("Slug")
-                        .IsUnique()
-                        .HasDatabaseName("ix_video_groups_slug");
-
-                    b.ToTable("video_groups", (string)null);
-                });
-
-            modelBuilder.Entity("HomeoSapiens.Models.Entities.Video", b =>
-                {
-                    b.HasOne("HomeoSapiens.Models.Entities.Asset", "ThumbnailEn")
-                        .WithMany()
-                        .HasForeignKey("ThumbnailEnId")
-                        .HasConstraintName("fk_videos_assets_thumbnail_en_id");
-
-                    b.HasOne("HomeoSapiens.Models.Entities.Asset", "ThumbnailPl")
-                        .WithMany()
-                        .HasForeignKey("ThumbnailPlId")
-                        .HasConstraintName("fk_videos_assets_thumbnail_pl_id");
-
-                    b.Navigation("ThumbnailEn");
-
-                    b.Navigation("ThumbnailPl");
                 });
 #pragma warning restore 612, 618
         }
