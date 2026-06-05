@@ -1,0 +1,5 @@
+root = true
+
+[*.cs]
+# Postgres text has no perf penalty vs varchar(n); unbounded string is fine
+resharper_entity_framework_model_validation_unlimited_string_length_highlighting = none

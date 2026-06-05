@@ -1,5 +1,5 @@
 using System.Transactions;
-using HomeoSapiens.Entities;
+using HomeoSapiens.Models.Entities;
 using HomeoSapiens.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,13 +13,27 @@ public static class Seeds
 
         await dbContext.UpsertRange(new User
             {
-                Id = Guid.CreateVersion7(),
                 Email = "karol@moroz.dev",
                 FamilyName = "Moroz",
                 GivenName = "Karol",
                 Role = UserRole.Admin
             })
             .On(u => u.Email)
+            .NoUpdate()
+            .RunAsync();
+
+        await dbContext.UpsertRange(
+                new Event
+                {
+                    TitleEn = "Sample Event",
+                    TitlePl = "Sample Event",
+                    Slug = "sample-event",
+                    StartsAt = DateTime.Today.ToUniversalTime().AddDays(3).AddHours(10),
+                    EndsAt = DateTime.Today.ToUniversalTime().AddDays(3).AddHours(12),
+                    DescriptionEn = "Description",
+                    DescriptionPl = "Description"
+                })
+            .On(u => u.Slug)
             .NoUpdate()
             .RunAsync();
 

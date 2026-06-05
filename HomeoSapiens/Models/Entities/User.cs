@@ -1,10 +1,9 @@
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HomeoSapiens.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace HomeoSapiens.Entities;
+namespace HomeoSapiens.Models.Entities;
 
 [Index(nameof(Email), IsUnique = true)]
 public class User

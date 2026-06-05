@@ -1,5 +1,5 @@
 using HomeoSapiens.Data;
-using HomeoSapiens.Entities;
+using HomeoSapiens.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeoSapiens.Repositories;

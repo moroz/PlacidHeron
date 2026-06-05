@@ -25,6 +25,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<EventRepository>();
 
 var app = builder.Build();
 
