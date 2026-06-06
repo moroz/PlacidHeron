@@ -1,3 +1,4 @@
+using HomeoSapiens.Models.Entities;
 using HomeoSapiens.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,16 +17,14 @@ public class PlaylistController(PlaylistRepository playlistRepository) : Control
         });
     }
 
-    [HttpGet("/api/v1/playlists/{id}")]
-    public async Task<IActionResult> Show(Guid id)
-    {
-        var playlist = await playlistRepository.GetPlaylistById(id);
+    [HttpGet("/api/v1/playlists/{id:guid}")]
+    public async Task<IActionResult> Show(Guid id) =>
+        PlaylistResult(await playlistRepository.GetPlaylistById(id));
 
-        if (playlist is null) return NotFound();
+    [HttpGet("/api/v1/playlists/{slug}")]
+    public async Task<IActionResult> Show(string slug) =>
+        PlaylistResult(await playlistRepository.GetPlaylistBySlug(slug));
 
-        return Ok(new
-        {
-            Data = playlist
-        });
-    }
+    private IActionResult PlaylistResult(Playlist? playlist) =>
+        playlist is null ? NotFound() : Ok(new { Data = playlist });
 }

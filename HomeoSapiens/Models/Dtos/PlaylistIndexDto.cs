@@ -1,6 +1,6 @@
 namespace HomeoSapiens.Models.Dtos;
 
-public class PlaylistDto
+public class PlaylistIndexDto
 {
     public required Guid Id { get; set; }
     public required string Slug { get; set; }
