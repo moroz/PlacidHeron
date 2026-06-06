@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HomeoSapiens.Models.Entities;
 
-[Index(nameof(VideoId), nameof(Position), IsUnique = true)]
-public class VideoSource
+[Index(nameof(VideoGroupId), nameof(Position), IsUnique = true)]
+[Index(nameof(VideoGroupId), nameof(VideoId), IsUnique = true)]
+public class VideoGroupVideo
 {
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
     [Key]
@@ -13,13 +14,12 @@ public class VideoSource
 
     public Guid VideoId { get; set; }
     public Video? Video { get; set; }
-    
+
+    public Guid VideoGroupId { get; set; }
+    public VideoGroup? VideoGroup { get; set; }
+
     public int Position { get; set; }
 
-    public required string ContentType { get; set; }
-    public string? Codec { get; set; }
-    public required string ObjectKey { get; set; }
-    
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }
