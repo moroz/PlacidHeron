@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HomeoSapiens.Models.Entities;
 
@@ -24,4 +25,7 @@ public class Video
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+    [JsonIgnore]
+    public List<VideoGroupVideo>? VideoGroupVideos { get; set; }
 }

@@ -21,5 +21,8 @@ public class VideoGroup
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public ICollection<Video> Videos { get; set; } = null!;
+    public List<Video>? Videos { get; set; }
+
+    [JsonIgnore]
+    public List<VideoGroupVideo>? VideoGroupVideos { get; set; }
 }

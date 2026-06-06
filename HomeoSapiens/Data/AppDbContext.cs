@@ -36,5 +36,16 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             {
                 t.HasCheckConstraint("video_group_video_position_must_be_non_neg", "position >= 0");
             });
+
+        modelBuilder.Entity<VideoGroup>()
+            .HasMany(g => g.Videos)
+            .WithMany()
+            .UsingEntity<VideoGroupVideo>(
+                r => r.HasOne(gv => gv.Video)
+                    .WithMany(v => v.VideoGroupVideos)
+                    .HasForeignKey(gv => gv.VideoId),
+                l => l.HasOne(gv => gv.VideoGroup)
+                    .WithMany(g => g.VideoGroupVideos)
+                    .HasForeignKey(gv => gv.VideoGroupId));
     }
 }
