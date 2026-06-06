@@ -18,14 +18,16 @@ public class Video
     public int? DurationSeconds { get; set; }
 
     public Guid? ThumbnailPlId { get; set; }
+    public Guid? ThumbnailEnId { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public Asset? ThumbnailPl { get; set; }
 
-    public Guid? ThumbnailEnId { get; set; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public Asset? ThumbnailEn { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    [JsonIgnore]
-    public List<VideoGroupVideo>? VideoGroupVideos { get; set; }
+    [JsonIgnore] public List<PlaylistVideo>? PlaylistVideos { get; set; }
 }

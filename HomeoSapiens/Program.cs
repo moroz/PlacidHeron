@@ -26,7 +26,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<EventRepository>();
-builder.Services.AddScoped<VideoGroupRepository>();
+builder.Services.AddScoped<PlaylistRepository>();
 
 var app = builder.Build();
 

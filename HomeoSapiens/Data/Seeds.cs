@@ -82,12 +82,12 @@ public static class Seeds
         const string modiSeminar2 = "019daf9b-7234-71bb-be93-f9f965d56ac6";
         const string jeggelsWebinar = "019dc005-f4a8-76fb-afdd-2e5caff8fb5a";
 
-        VideoGroup Group(string id, string slug, string titleEn, string titlePl) => new()
+        Playlist Group(string id, string slug, string titleEn, string titlePl) => new()
         {
             Id = Guid.Parse(id), Slug = slug, TitleEn = titleEn, TitlePl = titlePl
         };
 
-        var videoGroups = new[]
+        var playlists = new[]
         {
             Group(modiSeminar1, "dr-sanjay-modi-to-perfect-the-art-of-homeopathy",
                 "Dr Sanjay Modi: To Perfect the Art of Homeopathy",
@@ -106,7 +106,7 @@ public static class Seeds
                 "Webinarium z drem Hermanem Jeggelsem")
         };
 
-        await dbContext.UpsertRange(videoGroups)
+        await dbContext.UpsertRange(playlists)
             .On(g => g.Id)
             .NoUpdate()
             .RunAsync();
@@ -241,13 +241,13 @@ public static class Seeds
             .NoUpdate()
             .RunAsync();
 
-        VideoGroupVideo GroupVideo(string id, string videoGroupId, string videoId, int position) => new()
+        PlaylistVideo GroupVideo(string id, string playlistId, string videoId, int position) => new()
         {
-            Id = Guid.Parse(id), VideoGroupId = Guid.Parse(videoGroupId), VideoId = Guid.Parse(videoId),
+            Id = Guid.Parse(id), PlaylistId = Guid.Parse(playlistId), VideoId = Guid.Parse(videoId),
             Position = position
         };
 
-        var videoGroupsVideos = new[]
+        var playlistVideos = new[]
         {
             GroupVideo("019de883-cd46-7da6-a99b-9ed5f8dfe413", modiSeminar1, perfect1Day1, 0),
             GroupVideo("019de883-cd46-7f97-a00d-1d4b29a911eb", modiSeminar1, perfect1Day2, 1),
@@ -261,7 +261,7 @@ public static class Seeds
             GroupVideo("019de883-cd47-7002-9e69-c6ec4ee52c91", jeggelsWebinar, cardiacCases, 0)
         };
 
-        await dbContext.UpsertRange(videoGroupsVideos)
+        await dbContext.UpsertRange(playlistVideos)
             .On(gv => gv.Id)
             .NoUpdate()
             .RunAsync();

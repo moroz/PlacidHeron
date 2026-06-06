@@ -10,9 +10,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Event> Events { get; set; }
     public DbSet<Asset> Assets { get; set; }
     public DbSet<Video> Videos { get; set; }
-    public DbSet<VideoGroup> VideoGroups { get; set; }
+    public DbSet<Playlist> Playlists { get; set; }
     public DbSet<VideoSource> VideoSources { get; set; }
-    public DbSet<VideoGroupVideo> VideoGroupsVideos { get; set; }
+    public DbSet<PlaylistVideo> PlaylistVideos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,21 +31,21 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 t.HasCheckConstraint("video_source_position_must_be_non_neg", "position >= 0");
             });
 
-        modelBuilder.Entity<VideoGroupVideo>()
+        modelBuilder.Entity<PlaylistVideo>()
             .ToTable(t =>
             {
-                t.HasCheckConstraint("video_group_video_position_must_be_non_neg", "position >= 0");
+                t.HasCheckConstraint("playlist_video_position_must_be_non_neg", "position >= 0");
             });
 
-        modelBuilder.Entity<VideoGroup>()
+        modelBuilder.Entity<Playlist>()
             .HasMany(g => g.Videos)
             .WithMany()
-            .UsingEntity<VideoGroupVideo>(
+            .UsingEntity<PlaylistVideo>(
                 r => r.HasOne(gv => gv.Video)
-                    .WithMany(v => v.VideoGroupVideos)
+                    .WithMany(v => v.PlaylistVideos)
                     .HasForeignKey(gv => gv.VideoId),
-                l => l.HasOne(gv => gv.VideoGroup)
-                    .WithMany(g => g.VideoGroupVideos)
-                    .HasForeignKey(gv => gv.VideoGroupId));
+                l => l.HasOne(gv => gv.Playlist)
+                    .WithMany(g => g.PlaylistVideos)
+                    .HasForeignKey(gv => gv.PlaylistId));
     }
 }

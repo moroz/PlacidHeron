@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HomeoSapiens.Models.Entities;
 
 [Index(nameof(Slug), IsUnique = true)]
-public class VideoGroup
+public class Playlist
 {
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
     [Key]
@@ -24,5 +24,5 @@ public class VideoGroup
     public List<Video>? Videos { get; set; }
 
     [JsonIgnore]
-    public List<VideoGroupVideo>? VideoGroupVideos { get; set; }
+    public List<PlaylistVideo>? PlaylistVideos { get; set; }
 }
