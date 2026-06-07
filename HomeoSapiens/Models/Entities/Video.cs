@@ -30,4 +30,6 @@ public class Video
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     [JsonIgnore] public List<PlaylistVideo>? PlaylistVideos { get; set; }
+
+    public List<VideoSource>? VideoSources { get; set; }
 }
